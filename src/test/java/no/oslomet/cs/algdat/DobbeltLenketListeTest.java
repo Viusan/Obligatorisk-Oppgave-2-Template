@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 class Oppgave0Test {
     @Test
     void gruppeMedlemmerOppdatert() {
-        assertTrue(DobbeltLenketListe.gruppeMedlemmer() > 0, "Oppdater funksjonen gruppeMedlemmer() så den returnerer antall personer i gruppa!");
+        assertNotEquals(0, DobbeltLenketListe.gruppeMedlemmer(), "Oppdater funksjonen gruppeMedlemmer() så den returnerer antall personer i gruppa!");
     }
 }
 
