@@ -233,7 +233,7 @@ class Oppgave3Test {
         Boolean[] bliste = {true, false, false, true};
         DobbeltLenketListe<Boolean> liste = new DobbeltLenketListe<>(bliste);
         assertThrows(IndexOutOfBoundsException.class, () -> liste.subliste(-1, 1), "Kaster ingen eller gal feilmelding med subliste utenfor liste.");
-        assertThrows(IndexOutOfBoundsException.class, () -> liste.subliste(3, 4), "Kaster ingen eller gal feilmelding med subliste utenfor liste.");
+        assertThrows(IndexOutOfBoundsException.class, () -> liste.subliste(3, 5), "Kaster ingen eller gal feilmelding med subliste utenfor liste.");
         assertThrows(IllegalArgumentException.class, () -> liste.subliste(2,1), "Kaster ingen eller gal feilmelding når fra er større enn til.");
     }
 }

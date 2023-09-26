@@ -28,7 +28,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public void fraTilKontroll(int fra, int til) {
         if (fra < 0) throw new IndexOutOfBoundsException("fra("+fra+") er negativ.");
-        if (til >= antall) throw new IndexOutOfBoundsException("til("+til+") er større enn antall("+antall+")");
+        if (til > antall) throw new IndexOutOfBoundsException("til("+til+") er større enn antall("+antall+")");
         if (fra > til) throw new IllegalArgumentException("fra("+fra+") er større enn til("+til+") - Ulovlig intervall.");
     }
 
