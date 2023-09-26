@@ -386,7 +386,6 @@ class Oppgave6Test {
         assertTrue(liste.fjern("E"), "Liste klarer ikke fjerne eksisterende verdi.");
         assertFalse(liste.fjern("C"), "Liste påstår den klarer fjerne verdi som allerede er fjernet.");
         assertEquals(5, liste.antall(), "Feil antall etter fjerninger.");
-        assertEquals(0, liste.antall(), "Feil antall etter innlegginger og fjerninger.");
     }
 
     @Test
