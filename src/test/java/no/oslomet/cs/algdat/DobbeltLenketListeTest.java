@@ -414,7 +414,7 @@ class Oppgave6Test {
         long maks = Math.max(tidFjernIndeks, tidFjernVerdi);
         long min = Math.min(tidFjernIndeks, tidFjernVerdi);
 
-        assertTrue(maks <= 1.5*min, "En av fjern-metodene bruker sammenliknbart lenger tid enn den andre. Har du kodet dem ved hjelp av hverandre?");
+        assertTrue(maks <= 1.5*min, "En av fjern-metodene bruker sammenliknbart lenger tid enn den andre. ("+maks+"ms og "+min+"ms) Har du kodet dem ved hjelp av hverandre?");
     }
 }
 
