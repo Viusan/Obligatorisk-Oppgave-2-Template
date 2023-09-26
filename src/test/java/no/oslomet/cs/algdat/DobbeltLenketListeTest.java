@@ -1,12 +1,14 @@
 package no.oslomet.cs.algdat;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
 import java.time.Duration;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class Oppgave0Test {
     @Test
@@ -330,22 +332,32 @@ class Oppgave5Test {
 
 class Oppgave6Test {
     @Test
-    void fjernTom() {
-        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>();
+    void fjernTomIndeks() {
+        Liste<Character> liste = new DobbeltLenketListe<>();
         assertThrows(IndexOutOfBoundsException.class, () -> liste.fjern(0), "Fjerne element fra tom liste ga ingen eller gal feilmelding.");
-        assertDoesNotThrow(() -> liste.fjern(null), "Å prøve fjerne en verdi fra tom liste burde ikke kaste feilmelding.");
-        assertFalse(liste.fjern(null), "Å prøve fjerne verdi fra tom liste burde gi false.");
     }
 
     @Test
-    void fjernEttElement() {
+    void fjernTomVerdi() {
+        Liste<Character> liste = new DobbeltLenketListe<>();
+        assertDoesNotThrow(() -> liste.fjern(null), "Å prøve fjerne via verdi fra tom liste burde ikke kaste feilmelding.");
+        assertFalse(liste.fjern(null), "Å prøve fjerne via verdi fra tom liste burde gi false.");
+    }
+
+    @Test
+    void fjernEttElementIndeks() {
+        DobbeltLenketListe<String> liste = new DobbeltLenketListe<>();
+        liste.leggInn("C");
+        assertDoesNotThrow(() -> liste.fjern(0), "Noe går galt når man fjerner siste element fra lista.");
+        assertEquals("[]", liste.toString(), "Ender opp med feil svar etter å ha fjernet siste element fra lista.");
+        assertEquals("[]", liste.omvendtString(), "Ender opp med feil svar etter å ha fjernet siste element fra lista.");
+    }
+
+    @Test
+    void fjernEttElementVerdi() {
         DobbeltLenketListe<String> liste = new DobbeltLenketListe<>();
         liste.leggInn("B");
         assertDoesNotThrow(() -> liste.fjern("B"), "Noe går galt når man fjerner siste element fra lista.");
-        assertEquals("[]", liste.toString(), "Ender opp med feil svar etter å ha fjernet siste element fra lista.");
-        assertEquals("[]", liste.omvendtString(), "Ender opp med feil svar etter å ha fjernet siste element fra lista.");
-        liste.leggInn("C");
-        assertDoesNotThrow(() -> liste.fjern(0), "Noe går galt når man fjerner siste element fra lista.");
         assertEquals("[]", liste.toString(), "Ender opp med feil svar etter å ha fjernet siste element fra lista.");
         assertEquals("[]", liste.omvendtString(), "Ender opp med feil svar etter å ha fjernet siste element fra lista.");
     }
