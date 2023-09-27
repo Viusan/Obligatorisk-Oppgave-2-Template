@@ -608,7 +608,7 @@ class Oppgave10Test {
     @Test
     void sorterFlereElement() {
         if (DobbeltLenketListe.gruppeMedlemmer() < 3) return;
-        Liste<String> liste = new DobbeltLenketListe<>(new String[] {"G", "B", "F", "E", "D", "A"});
+        Liste<String> liste = new DobbeltLenketListe<>(new String[] {"G", "B", "F", "C", "E", "D", "A"});
         DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
         assertEquals("[A, B, C, D, E, F, G]", liste.toString(), "Feil sortering på liste med flere elementer.");
         DobbeltLenketListe.sorter(liste, Comparator.reverseOrder());
