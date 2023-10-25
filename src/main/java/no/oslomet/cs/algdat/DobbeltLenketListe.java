@@ -126,6 +126,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     // Oppgave 8
+
+    @Override
+    public Iterator<T> iterator() {
+        throw new UnsupportedOperationException();
+    }
+
+    public Iterator<T> iterator(int indeks) {
+        throw new UnsupportedOperationException();
+    }
+
     private class DobbeltLenketListeIterator implements Iterator<T> {
         private Node<T> denne;
         private boolean kanFjerne;
@@ -156,14 +166,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         public void remove() {
             throw new UnsupportedOperationException();
         }
-    }
-    @Override
-    public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
     }
 
     // Oppgave 10
