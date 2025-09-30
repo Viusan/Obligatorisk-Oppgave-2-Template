@@ -363,6 +363,15 @@ class Oppgave6Test {
     }
 
     @Test
+    void fjernEquals() {
+        DobbeltLenketListe<String> liste = new DobbeltLenketListe<>();
+        liste.leggInn("Test");
+        String test = new String("Test");
+        liste.fjern(test);
+        assertEquals("[]", liste.toString(), "Bruker ikke .equals for å sjekke likhet.");
+    }
+
+    @Test
     void fjernIndekser() {
         String[] s = {"A", "B", "C", "D", "E", "F", "G"};
         DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(s);
