@@ -83,16 +83,51 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // Oppgave 2
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        if(hode == null) return "[]";
+        Node currentNode = hode;
+        StringBuilder sb = new StringBuilder("[");
+
+        while(currentNode != null){
+            sb.append(currentNode.verdi);
+            if(currentNode.neste != null){
+                sb.append(", ");
+            }
+            currentNode = currentNode.neste;
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        Node currentNode = hale;
+        StringBuilder sb = new StringBuilder("[");
+        while(currentNode != null){
+            sb.append(currentNode.verdi);
+            if(currentNode.forrige != null){
+                sb.append(", ");
+            }
+            currentNode = currentNode.forrige;
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+       if(verdi == null) throw new NullPointerException("Verdi er null");
+       Node nyNode = new Node<>(verdi, hale, null);
+
+       if(hale == null){
+           hode = nyNode
+       }else{
+           hale.neste = nyNode;
+       }
+
+       hale = nyNode;
+
+       endringer++;
+       antall++;
+       return true;
     }
 
     // Oppgave 3
