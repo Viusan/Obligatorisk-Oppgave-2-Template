@@ -216,13 +216,54 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // Oppgave 5
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, true);
+        if(verdi == null) throw new NullPointerException("Ikke legg inn null verdi");
+        Node<T> nyNode = new Node(verdi, null, null);
+
+        if(antall == 0) {
+            hode = nyNode;
+            hale = nyNode;
+        }else if(antall == indeks){//Sist på lista
+            Node<T> currentNode = finnNode(indeks);
+            hale = nyNode;
+            nyNode.neste = null;
+            currentNode.neste = nyNode;
+            nyNode.forrige = currentNode;
+        }else if(indeks == 0){//Først på lista
+            Node<T> currentNode = finnNode(indeks);
+            hode = nyNode;
+            nyNode.forrige = null;
+            nyNode.neste = currentNode;
+            currentNode.forrige = nyNode;
+        }else{//Midten i lista
+            Node<T>currentNode = finnNode(indeks);
+            Node<T>forrigeNode = currentNode.forrige;
+            nyNode.forrige = forrigeNode;
+            forrigeNode.neste = nyNode;
+            nyNode.neste = currentNode;
+            currentNode.forrige = nyNode;
+        }
+        endringer++;
+        antall++;
     }
 
     // Oppgave 6
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+        if(indeks > antall)throw new IndexOutOfBoundsException();
+        Node<T> fjernetNode = finnNode(indeks);
+        T verdi = fjernetNode.verdi;
+        Node<T>forrigeNode = fjernetNode.forrige;
+        Node<T>nesteNode = fjernetNode.neste;
+
+        fjernetNode.verdi = null;
+        fjernetNode.neste = null;
+        fjernetNode.forrige = null;
+
+        forrigeNode.neste = nesteNode;
+        nesteNode.forrige = forrigeNode;
+
+        return verdi;
     }
 
     @Override
