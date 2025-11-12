@@ -118,7 +118,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
        Node nyNode = new Node<>(verdi, hale, null);
 
        if(hale == null){
-           hode = nyNode
+           hode = nyNode;
        }else{
            hale.neste = nyNode;
        }
@@ -132,22 +132,56 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // Oppgave 3
     private Node<T> finnNode(int indeks) {
-        throw new UnsupportedOperationException();
+        int midten = antall/2;
+        Node returnertNode = hode;
+        if(indeks < midten){
+            Node currentNode = hode;
+            for(int i = 0; i < indeks; i++){
+                currentNode = currentNode.neste;
+            }
+            return currentNode;
+        }else{
+            Node currentNode = hale;
+            for(int i = antall-1; i > indeks; i--){
+                currentNode = currentNode.forrige;
+            }
+            return currentNode;
+        }
     }
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+        Node<T> returnerVerdi = finnNode(indeks);
+        return returnerVerdi.verdi;
     }
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+        if(nyverdi == null) throw new NullPointerException("Verdi er null");
+        if(antall-1 < indeks) throw new IndexOutOfBoundsException("For høy verdi indeks, out of range");//Her må antall være -1 siden indeks starter på 0, mens antall starter på 1
+
+        Node<T> endreNode = finnNode(indeks);
+        T tidligereNodeVerdi = endreNode.verdi;
+        endreNode.verdi = nyverdi;
+        endringer++;
+
+        return tidligereNodeVerdi;
     }
 
 
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        fraTilKontroll(fra, til);
+        DobbeltLenketListe<T> subListe = new DobbeltLenketListe<>();
+        Node<T> peker = finnNode(fra);
+
+        for(int i = fra; fra < til; fra++){
+            subListe.leggInn(peker.verdi);
+            peker = peker.neste;
+        }
+
+        return subListe;
     }
 
     // Oppgave 4
