@@ -2,6 +2,7 @@ package no.oslomet.cs.algdat;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
     // Innebygd (Trenger ikke endres)
@@ -39,21 +40,44 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // Oppgave 1
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+        //Setter alt til null og 0
+        hode = null;
+        hale = null;
+        antall = 0;
+        endringer = 0;
     }
 
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(a, "Tabellen er null.");//Ser om det er tabell eller om det er null.
+        for (int i = 0; i < a.length; i++){
+            if(a[i]!= null){//Hopper over null verdier
+                Node<T> nyNode = new Node<>(a[i], hale, null);
+                //Hvis hode er lik null så eksisterer ikke noden så vi initiater den
+                if(hode == null){
+                    hode = nyNode;
+                }else{
+                    //Hvis hode allerede eksisterer så skal hale sin neste være lik den nye noden vår (hale er enden)
+                    //Så blir den nye noden vår sin forrige lik hale som er den tidligere noden
+                    hale.neste = nyNode;
+                }
+                hale = nyNode;//Oppdaterer halen til vår nye node siden det er siste node fra nå
+                antall++;//Incremente antall
+            }
+        }
     }
 
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        return antall;
     }
 
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        if(antall == 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     // Oppgave 2
