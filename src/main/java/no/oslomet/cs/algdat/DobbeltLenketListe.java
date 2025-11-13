@@ -333,7 +333,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // Oppgave 7
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+        Node<T> currentNode = hode;
+        while(currentNode != null){
+            Node<T> nesteNode = currentNode.neste;
+            currentNode.forrige = null;
+            currentNode.neste = null;
+            currentNode.verdi = null;
+            endringer++;
+            antall--;
+            currentNode = nesteNode;
+        }
+        hode = hale = null;
     }
 
     // Oppgave 8
