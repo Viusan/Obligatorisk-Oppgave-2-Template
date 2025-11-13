@@ -250,25 +250,84 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // Oppgave 6
     @Override
     public T fjern(int indeks) {
-        if(indeks > antall)throw new IndexOutOfBoundsException();
-        Node<T> fjernetNode = finnNode(indeks);
+        if(indeks >= antall || indeks < 0 || hode == null)throw new IndexOutOfBoundsException();
+        Node<T> fjernetNode = hode;
+        for(int i = 0; i < indeks; i++){
+            fjernetNode = fjernetNode.neste;
+        }
+
         T verdi = fjernetNode.verdi;
-        Node<T>forrigeNode = fjernetNode.forrige;
-        Node<T>nesteNode = fjernetNode.neste;
+
+        //Vi må finne ut om vi er på starten av lista, slutten, midten, eller om det er kun 1 element
+        if(fjernetNode.forrige == null && fjernetNode.neste == null){//kun et element
+            hode = hale = null;
+        }
+
+        if(fjernetNode.forrige == null && fjernetNode.neste != null){//første element (hodet)
+            Node<T> nesteNode = fjernetNode.neste;
+            hode = nesteNode;
+            nesteNode.forrige = null;
+        }
+
+        if(fjernetNode.forrige != null && fjernetNode.neste == null){//siste element (hale)
+            Node<T> forrigeNode = fjernetNode.forrige;
+            hale = forrigeNode;
+            forrigeNode.neste = null;
+        }
+
+        if(fjernetNode.forrige != null && fjernetNode.neste != null){//midt i listen
+            Node<T> forrigeNode = fjernetNode.forrige;
+            Node<T> nesteNode = fjernetNode.neste;
+            forrigeNode.neste = nesteNode;
+            nesteNode.forrige = forrigeNode;
+        }
 
         fjernetNode.verdi = null;
         fjernetNode.neste = null;
         fjernetNode.forrige = null;
-
-        forrigeNode.neste = nesteNode;
-        nesteNode.forrige = forrigeNode;
-
+        endringer++;
+        antall--;
         return verdi;
     }
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        if(verdi == null)return false;
+        Node<T> currentNode = hode;
+        while(currentNode != null){
+            if(currentNode.verdi.equals(verdi)){
+                if(currentNode.forrige == null && currentNode.neste == null){//kun et element
+                    hode = hale = null;
+                }
+                if(currentNode.forrige == null && currentNode.neste != null){//første element (hodet)
+                    Node<T> nesteNode = currentNode.neste;
+                    hode = nesteNode;
+                    nesteNode.forrige = null;
+                }
+
+                if(currentNode.forrige != null && currentNode.neste == null){//siste element (hale)
+                    Node<T> forrigeNode = currentNode.forrige;
+                    hale = forrigeNode;
+                    forrigeNode.neste = null;
+                }
+
+                if(currentNode.forrige != null && currentNode.neste != null){//midt i listen
+                    Node<T> forrigeNode = currentNode.forrige;
+                    Node<T> nesteNode = currentNode.neste;
+                    forrigeNode.neste = nesteNode;
+                    nesteNode.forrige = forrigeNode;
+                }
+
+                currentNode.verdi = null;
+                currentNode.neste = null;
+                currentNode.forrige = null;
+                endringer++;
+                antall--;
+                return true;
+            }
+            currentNode = currentNode.neste;
+        }
+        return false;
     }
 
     // Oppgave 7
