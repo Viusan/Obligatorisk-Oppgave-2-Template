@@ -1,8 +1,6 @@
 package no.oslomet.cs.algdat;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
     // Innebygd (Trenger ikke endres)
@@ -347,14 +345,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     // Oppgave 8
-
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        if(indeks >= 0 && indeks < antall){
+            return new DobbeltLenketListeIterator(indeks);
+        }else{
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -369,7 +370,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+            denne = hode;
+            for(int i = 0; i <indeks; i++){
+                denne = denne.neste;
+            }
+            kanFjerne = false;
+            iteratorendringer = endringer;
         }
 
         @Override
@@ -379,7 +385,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
+            if(endringer != iteratorendringer) throw new ConcurrentModificationException();
+            if(denne == null)throw new NoSuchElementException();
+            kanFjerne = true;
+            T verdi = denne.verdi;
+            denne = denne.neste;
+            return verdi;
         }
 
         // Oppgave 9:
